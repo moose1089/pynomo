@@ -1,7 +1,6 @@
 *.pyc
 *.tex
 *.dvi
-*.pdf
 *.eps
 .idea
 GENERATE_SINGLE.*
