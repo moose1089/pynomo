@@ -27,6 +27,7 @@ N_params_1 = {
     'u_min': 0.0,
     'u_max': 100.0,
     'function': lambda u: u,
+    'text_format': r"$%5.0f \%% $",
     'title': r'$edge$',
     'tick_levels': 3,
     'tick_text_levels': 1,
@@ -35,7 +36,7 @@ N_params_1 = {
 N_params_2 = {
     'u_min': 0.01,
     'u_max': 1.0,
-    'function': lambda u: u,
+    'function': lambda u: 1*u,
     'title': r'$kelly$',
     'tick_levels': 3,
     'tick_text_levels': 2,
@@ -45,6 +46,7 @@ N_params_2 = {
 N_params_3 = {
     'u_min': 0.0,
     'u_max': 100.0,
+    'text_format': r"$%5.0f \%% $",
     'function': lambda u: (100-u),
     'title': r'$ImpliedProbability$',
     'tick_levels': 3,
@@ -64,7 +66,7 @@ block_1_params = {
 
 main_params = {
     'filename': 'kc.pdf',
-    'paper_height': 10.0,
+    'paper_height': 14.0,
     'paper_width': 10.0,
     'block_params': [block_1_params],
     'transformations': [('rotate', 0.0), ('scale paper',)],
