@@ -77,7 +77,7 @@ class Nomo_Axis:
             'title_distance_center': 0.5,
             'title_opposite_tick': True,
             'title_draw_center': False,
-            'title_rotate_text':False,
+            'title_rotate_text': False,
             'title_relative_offset': (0, 0),  # relative (dx,dy)
             'title_absolute_offset': (0, 0),  # absolute (dx,dy)
             'text_format': "$%4.4g$",
@@ -1592,6 +1592,7 @@ class Nomo_Axis:
             angle = -math.atan(dx_unit / dy_unit) * 180 / math.pi
         else:
             angle = -180.0
+
 
         c.text(self.func_f(best_u) + self.title_x_shift,
                self.func_g(best_u) + self.title_y_shift,

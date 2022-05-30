@@ -21,6 +21,7 @@ from .isopleth import Isopleth_Wrapper
 from .nomo_wrapper import Nomo_Wrapper
 from .nomo_wrapper import Nomo_Block_Type_1
 from .nomo_wrapper import Nomo_Block_Type_2
+from .nomo_wrapper import Nomo_Block_Type_2b
 from .nomo_wrapper import Nomo_Block_Type_3
 from .nomo_wrapper import Nomo_Block_Type_4
 from .nomo_wrapper import Nomo_Block_Type_5
@@ -81,6 +82,23 @@ class Nomographer:
                 blocks[-1].define_F1(block_para['f1_params'])
                 blocks[-1].define_F2(block_para['f2_params'])
                 blocks[-1].define_F3(block_para['f3_params'])
+                blocks[-1].set_block(width=block_para['width'],
+                                     height=block_para['height'])
+                wrapper.add_block(blocks[-1])
+                isopleths.add_isopleth_block(blocks[-1], block_para)
+            # TYPE 2b
+            if block_para['block_type'] == 'type_2b':
+                self._check_block_type_2b_params_(block_para)
+                blocks.append(Nomo_Block_Type_2b(mirror_x=block_para['mirror_x'],
+                                                mirror_y=block_para['mirror_y']))
+                self._check_axis_params_(block_para['f1_params'])
+                self._check_axis_params_(block_para['f2_params'])
+                self._check_axis_params_(block_para['f3_params'])
+                self._check_axis_params_(block_para['f4_params'])
+                blocks[-1].define_F1(block_para['f1_params'])
+                blocks[-1].define_F2(block_para['f2_params'])
+                blocks[-1].define_F3(block_para['f3_params'])
+                blocks[-1].define_F4(block_para['f4_params'])
                 blocks[-1].set_block(width=block_para['width'],
                                      height=block_para['height'])
                 wrapper.add_block(blocks[-1])
@@ -388,6 +406,22 @@ class Nomographer:
                 params[key] = params_default[key]
 
     def _check_block_type_2_params_(self, params):
+        """
+        checks if block type 2 params ok and adds default values
+        """
+        params_default = {
+            'mirror_x': False,
+            'mirror_y': False,
+            'width': 10.0,
+            'height': 10.0,
+            'debug': False,
+            'isopleth_values': [],
+        }
+        for key in params_default:
+            if not key in params:
+                params[key] = params_default[key]
+
+    def _check_block_type_2b_params_(self, params):
         """
         checks if block type 2 params ok and adds default values
         """
