@@ -1163,7 +1163,7 @@ class Nomo_Block_Type_2b(Nomo_Block):
 
     def define_F5(self, params):
         """
-        defines function F4
+        defines function F5
         """
         self.F5 = params['function']
         self.params_F5 = params
@@ -1196,6 +1196,9 @@ class Nomo_Block_Type_2b(Nomo_Block):
         f1_min = m1 * \
             min(self.F1(self.params_F1['u_min']),
                 self.F1(self.params_F1['u_max']))
+        f5_min = m1 * \
+            min(self.F1(self.params_F1['u_min']),
+                self.F1(self.params_F1['u_max']))
         f3_max = m3 * \
             max(self.F3(self.params_F3['u_min']),
                 self.F3(self.params_F3['u_max']))
@@ -1206,7 +1209,7 @@ class Nomo_Block_Type_2b(Nomo_Block):
             max(self.F5(self.params_F5['u_min']),
                 self.F5(self.params_F5['u_max']))
         y_offset_1_3 = f1_min - (height - f3_max)
-        y_offset_1_5 = f1_min - (height - f5_max)
+        y_offset_1_5 = f5_min - (height - f5_max)
 
         K = np.sqrt(height ** 2 + width ** 2)
         self.params_F1['F'] = lambda u: 0.0
