@@ -1161,6 +1161,13 @@ class Nomo_Block_Type_2b(Nomo_Block):
         self.F4 = params['function']
         self.params_F4 = params
 
+    def define_F5(self, params):
+        """
+        defines function F4
+        """
+        self.F5 = params['function']
+        self.params_F5 = params
+
     def set_block(self, height=10.0, width=10.0):
         """
         sets the N-nomogram of the block using geometrical approach from Levens
@@ -1177,20 +1184,29 @@ class Nomo_Block_Type_2b(Nomo_Block):
         length_f4_ini = max(self.F4(self.params_F4['u_min']), self.F4(self.params_F4['u_max'])) - \
             min(self.F4(self.params_F4['u_min']),
                 self.F4(self.params_F4['u_max']))
+        length_f5_ini = max(self.F5(self.params_F5['u_min']), self.F5(self.params_F5['u_max'])) - \
+            min(self.F5(self.params_F5['u_min']),
+                self.F5(self.params_F5['u_max']))
         K1 = width
         #    length_f1=length_f3 (and f4)
         m1 = height / length_f1_ini
         m3 = height / length_f3_ini
+        m4 = height /2.0/ length_f4_ini
+        m5 = height / length_f5_ini
         f1_min = m1 * \
             min(self.F1(self.params_F1['u_min']),
                 self.F1(self.params_F1['u_max']))
-        f4_min = m1 * \
-            min(self.F4(self.params_F4['u_min']),
-                self.F4(self.params_F4['u_max']))
         f3_max = m3 * \
             max(self.F3(self.params_F3['u_min']),
                 self.F3(self.params_F3['u_max']))
+        f4_min = m4 * \
+            min(self.F4(self.params_F4['u_min']),
+                self.F4(self.params_F4['u_max']))
+        f5_max = m5 * \
+            max(self.F5(self.params_F5['u_min']),
+                self.F5(self.params_F5['u_max']))
         y_offset_1_3 = f1_min - (height - f3_max)
+        y_offset_1_5 = f1_min - (height - f5_max)
 
         K = np.sqrt(height ** 2 + width ** 2)
         self.params_F1['F'] = lambda u: 0.0
@@ -1212,9 +1228,16 @@ class Nomo_Block_Type_2b(Nomo_Block):
         self.add_atom(self.atom_F3)
 
         self.params_F4['F'] = lambda u: (width/2) * self.x_mirror
-        self.params_F4['G'] = lambda u: ((self.F4(u)) * m1) * self.y_mirror
+        self.params_F4['G'] = lambda u: ((self.F4(u)) * m4) * self.y_mirror
         self.atom_F4 = Nomo_Atom(self.params_F4)
         self.add_atom(self.atom_F4)
+
+        self.params_F5['F'] = lambda u: (width) * self.x_mirror
+        self.params_F5['G'] = lambda u: (
+            (height - (self.F5(u)) * m5) + y_offset_1_5) * self.y_mirror
+
+        self.atom_F5 = Nomo_Atom(self.params_F5)
+        self.add_atom(self.atom_F5)
 
         self.F1_axis = Axis_Wrapper(f=self.params_F1['F'], g=self.params_F1['G'],
                                     start=self.params_F1['u_min'], stop=self.params_F1['u_max'])
@@ -1231,6 +1254,12 @@ class Nomo_Block_Type_2b(Nomo_Block):
         self.F3_axis = Axis_Wrapper(f=self.params_F3['F'], g=self.params_F3['G'],
                                     start=self.params_F3['u_min'], stop=self.params_F3['u_max'])
         self.axis_wrapper_stack.append(self.F3_axis)
+
+        self.F5_axis = Axis_Wrapper(f=self.params_F5['F'], g=self.params_F5['G'],
+                                    start=self.params_F5['u_min'], stop=self.params_F5['u_max'])
+        self.axis_wrapper_stack.append(self.F5_axis)
+
+
         self.set_reference_axes()
 
 class Nomo_Block_Type_3(Nomo_Block):

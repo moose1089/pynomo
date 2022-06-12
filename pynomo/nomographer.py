@@ -95,10 +95,12 @@ class Nomographer:
                 self._check_axis_params_(block_para['f2_params'])
                 self._check_axis_params_(block_para['f3_params'])
                 self._check_axis_params_(block_para['f4_params'])
+                self._check_axis_params_(block_para['f5_params'])
                 blocks[-1].define_F1(block_para['f1_params'])
                 blocks[-1].define_F2(block_para['f2_params'])
                 blocks[-1].define_F3(block_para['f3_params'])
                 blocks[-1].define_F4(block_para['f4_params'])
+                blocks[-1].define_F5(block_para['f5_params'])
                 blocks[-1].set_block(width=block_para['width'],
                                      height=block_para['height'])
                 wrapper.add_block(blocks[-1])
