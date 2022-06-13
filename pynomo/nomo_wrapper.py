@@ -1239,6 +1239,8 @@ class Nomo_Block_Type_2b(Nomo_Block):
         self.params_F5['G'] = lambda u: (
             (height - (self.F5(u)) * m5) + y_offset_1_5) * self.y_mirror
 
+        print("height=",height," y_offset_1_5=",y_offset_1_5," f5_min, f5_max=" ,f5_min,",", f5_max,"\n")
+        print("length_f5_ini=", length_f5_ini," m5=",m5,"\n")
         self.atom_F5 = Nomo_Atom(self.params_F5)
         self.add_atom(self.atom_F5)
 
@@ -3189,6 +3191,7 @@ class Nomo_Atom:
                 base_stop = p['u_max']
             else:
                 base_stop = p['base_stop']
+            print("wrapper draw base STOP",base_stop,"\n")
             self.nomo_axis_ref = Nomo_Axis(func_f=self.give_x, func_g=self.give_y,
                                            start=p['u_min'], stop=p['u_max'],
                                            turn=-1, title=p['title'], canvas=canvas, type=p['scale_type'],

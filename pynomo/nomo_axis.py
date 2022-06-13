@@ -41,6 +41,7 @@ class Nomo_Axis:
         self.func_g = func_g
         self.start = start
         self.stop = stop
+        print("Axis STOP",stop,"\n")
         self.side = side
         self.turn = turn  # to be removed, use side
         self.title = title
@@ -148,6 +149,8 @@ class Nomo_Axis:
                                           base_start=base_start_1, base_stop=base_stop_1)
             self.draw_axis(canvas)
         if type == 'log smart':
+            print("log smart in Axis base STOP", base_stop_1,"\n")
+
             self._make_log_axis_smart_(start=start, stop=stop, f=func_f, g=func_g, turn=turn,
                                        base_start=base_start_1, base_stop=base_stop_1)
             self.draw_axis(canvas)
@@ -1840,6 +1843,8 @@ def find_log_ticks_smart(start, stop, f, g, turn=1, base_start=None,
     """
     finds tick values for linear axis
     """
+    print("find_log_ticks_smart  STOP",base_stop,"\n")
+
     if (start < stop):
         min_value, max_value = start, stop
     else:
@@ -1971,6 +1976,7 @@ def find_linear_ticks_smart(start, stop, f, g, turn=1, base_start=None,
     finds smart ticks
     """
     # first find tick scales
+    print("find_linear_ticks_smart  STOP",base_stop,"\n")
     if start > stop:
         start, stop = stop, start
     if (base_start != None) and (base_stop != None):
@@ -1979,6 +1985,8 @@ def find_linear_ticks_smart(start, stop, f, g, turn=1, base_start=None,
         scale_max = 10.0 ** math.ceil(math.log10(math.fabs(start - stop)) - 0.5)
     if scale_max_0 != None:
         scale_max = scale_max_0  # set range manually
+    print("find_linear_ticks_smart STARt",base_start,"\n")
+    print("find_linear_ticks_smart scalemax",scale_max,"\n")
     tick_0 = scale_max / 10.0
     tick_1 = scale_max / 20.0
     tick_2 = scale_max / 100.0
