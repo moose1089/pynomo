@@ -38,7 +38,6 @@ class Axis_Wrapper:
         self.g = g
         self.start = start
         self.stop = stop
-        print("AXIS wrapper STOP",stop,"\n")
         # initial transformation coeffs
         self.set_transformation()
         self._calculate_points_()
