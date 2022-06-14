@@ -6,3 +6,4 @@ kc.pdf: kc.py
 kc2.pdf: kc2.py ../pynomo/*.py
 	echo compiling kc2
 	python3 kc2.py
+	pdfjam kc2.pdf --a4paper -o kc2-out.pdf
